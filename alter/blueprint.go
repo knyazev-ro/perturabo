@@ -19,6 +19,7 @@ type Column struct {
 
 	ColumnAdd  string
 	ColumnDrop string
+	Statistics string
 }
 
 func Col(name any) *Column {
@@ -56,7 +57,7 @@ func (c *Column) ToSQL() string {
 	}
 
 	if c.ColumnRename != "" {
-		sql = append(sql, "RENAME COLUMN "+c.ColumnRename)
+		sql = append(sql, c.ColumnRename)
 	}
 
 	if c.ColumnRenameUsing != "" {
@@ -69,6 +70,10 @@ func (c *Column) ToSQL() string {
 
 	if c.ColumnDrop != "" {
 		sql = append(sql, c.ColumnDrop)
+	}
+
+	if c.Statistics != "" {
+		sql = append(sql, c.Statistics)
 	}
 
 	sqlStr := strings.Join(sql, "")

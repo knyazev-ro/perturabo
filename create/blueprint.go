@@ -1,8 +1,6 @@
 package create
 
 import (
-	"fmt"
-	"perturabo/utils"
 	"strings"
 )
 
@@ -34,11 +32,7 @@ func (c *Column) ToSQL() string {
 	sql = append(sql, c.Field)
 
 	if c.Default != "" {
-		if utils.IsFloat(c.Default) || utils.IsInt(c.Default) {
-			sql = append(sql, "DEFAULT "+c.Default)
-		} else {
-			sql = append(sql, fmt.Sprintf("DEFAULT '%s'", c.Default))
-		}
+		sql = append(sql, "DEFAULT "+c.Default)
 	}
 
 	if c.Nullable {

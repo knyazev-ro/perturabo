@@ -7,6 +7,7 @@ import (
 	"perturabo/create"
 	_ "perturabo/migrations"
 	"perturabo/registry"
+	_ "perturabo/sysmigrations"
 	"perturabo/utils"
 	"sort"
 	"strings"

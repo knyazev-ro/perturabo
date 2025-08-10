@@ -8,12 +8,20 @@ import (
 )
 
 type Settings struct {
-	Migrations string `yaml:"migrations"`
+	Migrations    string `yaml:"migrations"`
+	SysMigrations string `yaml:"sysmigrations"`
+
+	TemplateCreate string `yaml:"template-create"`
+	TemplateAlter  string `yaml:"template-alter"`
 }
 
 func DefaultSettings() *Settings {
 	return &Settings{
-		Migrations: "./migrations",
+		Migrations:    "./migrations",
+		SysMigrations: "./sysmigrations",
+
+		TemplateCreate: "./templates/create.tmpl",
+		TemplateAlter:  "./templates/alter.tmpl",
 	}
 }
 

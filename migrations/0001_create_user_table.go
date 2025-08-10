@@ -17,6 +17,9 @@ var UpCreateUserTable_0001 = registry.Register(
 				create.NewId(),
 				create.NewString("name", 255).SetNullable(),
 				create.NewBigInteger("value"),
+				create.NewDate("start_date"),
+				create.NewTimestamp("created_at").SetDefault("now()").SetUnique(),
+				create.NewBoolean("is_active").SetNullable(),
 			},
 		}
 	},

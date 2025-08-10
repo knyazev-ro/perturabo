@@ -31,7 +31,7 @@ func (c *Column) DropNotNull() *Column {
 }
 
 func (c *Column) Rename(newName string) *Column {
-	c.ColumnRename = fmt.Sprintf("%s TO %s", c.Field, newName)
+	c.ColumnRename = fmt.Sprintf("RENAME COLUMN %s TO %s", c.Field, newName)
 	return c
 }
 
@@ -47,5 +47,10 @@ func (c *Column) Add(value string) *Column {
 
 func (c *Column) Drop() *Column {
 	c.ColumnDrop = fmt.Sprintf("DROP COLUMN %s", c.Field)
+	return c
+}
+
+func (c *Column) SetStatistics(value int) *Column {
+	c.Statistics = fmt.Sprintf("%s SET STATISTICS %d", c.Field, value)
 	return c
 }
