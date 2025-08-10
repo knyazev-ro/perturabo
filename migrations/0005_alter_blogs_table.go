@@ -2,7 +2,6 @@ package migrations
 
 import (
 	"perturabo/alter"
-	"perturabo/create"
 	"perturabo/registry"
 )
 
@@ -15,7 +14,7 @@ var UpAlterBlogsTable_0005 = registry.Register(
 		return &alter.Table{
 			Name: "blogs",
 			Body: []*alter.Column{
-                //alter.Col() ... Fileds place here
+				//alter.Col() ... Fileds place here
 			},
 		}
 	},
@@ -28,7 +27,7 @@ var DownAlterBlogsTable_0005 = registry.Register(
 		return &alter.Table{
 			Name: "blogs",
 			Body: []*alter.Column{
-                //alter.Col() ... Fileds place here
+				//alter.Col() ... Fileds place here
 			},
 		}
 	},
