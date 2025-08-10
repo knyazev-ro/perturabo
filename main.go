@@ -35,5 +35,7 @@ func main() {
 
 	// println(DropTableIfExists("users"))
 
-	migrate.Run()
+	migrate.Up()
+	migrate.Down()
+
 }

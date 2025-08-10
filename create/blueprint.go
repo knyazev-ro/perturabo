@@ -31,7 +31,6 @@ type Column struct {
 func (c *Column) ToSQL() string {
 
 	sql := []string{}
-
 	sql = append(sql, c.Field)
 
 	if c.Default != "" {

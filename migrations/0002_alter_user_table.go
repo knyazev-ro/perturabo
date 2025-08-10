@@ -6,8 +6,11 @@ import (
 	"perturabo/registry"
 )
 
-var AlterUserTable_0002 = registry.Register(
-	"0002_alter_user_table",
+var migrationNameAlterUserTable_0002 = "0002_alter_user_table"
+
+var UpAlterUserTable_0002 = registry.Register(
+	registry.Action.Up,
+	migrationNameAlterUserTable_0002,
 	func() any {
 		return &alter.Table{
 			Name: "users",
@@ -22,6 +25,28 @@ var AlterUserTable_0002 = registry.Register(
 				alter.Col("name").Rename("full_name"),
 				alter.Col("json_field").RenameTypeUsing("JSONB"),
 				alter.Col("auhtor_id").Drop(),
+			},
+		}
+	},
+)
+
+var DownAlterUserTable_0002 = registry.Register(
+	registry.Action.Down,
+	migrationNameAlterUserTable_0002,
+	func() any {
+		return &alter.Table{
+			Name: "users",
+			Body: []*alter.Column{
+				alter.Col("name").Type("VARCHAR(255)"),
+				alter.Col("first_name").Type("VARCHAR(255)"),
+				alter.Col("amount").SetDefault("255"),
+				alter.Col("amount").DropDefault(),
+				alter.Col("last_name").Drop(),
+				alter.Col("author_id").DropNotNull(),
+				alter.Col("author_id").SetNotNull(),
+				alter.Col("full_name").Rename("name"),
+				alter.Col("json_field").RenameTypeUsing("TEXT"),
+				alter.Col(nil).Add(create.NewBigInteger("author_id").ToSQL()),
 			},
 		}
 	},

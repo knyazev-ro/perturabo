@@ -10,6 +10,12 @@ func GenerateCreateTableSQL(table *create.Table) string {
 	columns := table.Body
 	body := ""
 	name := table.Name
+	drop := table.Drop
+
+	if drop {
+		return DropTableIfExists(name)
+	}
+
 	for i, col := range columns {
 		body += "    " + col.ToSQL()
 		if i < len(columns)-1 {

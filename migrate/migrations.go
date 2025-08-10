@@ -2,10 +2,20 @@ package migrate
 
 import (
 	"fmt"
+	"perturabo/registry"
 )
 
-func Run() {
-	arr, err := GetExistingMigrations()
+func Up() {
+	arr, err := Get(registry.Action.Up)
+	if err != nil {
+		fmt.Println("Migration stopped. Error.", err.Error())
+	}
+
+	fmt.Println(arr)
+}
+
+func Down() {
+	arr, err := Get(registry.Action.Down)
 	if err != nil {
 		fmt.Println("Migration stopped. Error.", err.Error())
 	}

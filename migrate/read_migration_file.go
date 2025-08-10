@@ -62,7 +62,7 @@ func ValidateFileName(filename string) (string, error) {
 	return "", os.ErrInvalid
 }
 
-func GetExistingMigrations() ([]string, error) {
+func Get(action string) ([]string, error) {
 	loadMigrationFormattedFiles, err := LoadMigrationFiles()
 	if err != nil {
 		fmt.Println("Error", err.Error())
@@ -72,15 +72,28 @@ func GetExistingMigrations() ([]string, error) {
 
 		isCreate := strings.Split(readEntry, "_")[1] == "create"
 
-		if f, ok := registry.Funcs[readEntry]; ok {
-			if isCreate {
-				table := f().(*create.Table) // приведение типа
-				migrationsList = append(migrationsList, GenerateCreateTableSQL(table))
-			} else {
-				table := f().(*alter.Table) // приведение типа
-				migrationsList = append(migrationsList, GenerateAlterTableSQL(table))
+		if action == registry.Action.Up {
+			if f, ok := registry.Up[readEntry]; ok {
+				if isCreate {
+					table := f().(*create.Table) // приведение типа
+					migrationsList = append(migrationsList, GenerateCreateTableSQL(table))
+				} else {
+					table := f().(*alter.Table) // приведение типа
+					migrationsList = append(migrationsList, GenerateAlterTableSQL(table))
+				}
+			}
+		} else {
+			if f, ok := registry.Down[readEntry]; ok {
+				if isCreate {
+					table := f().(*create.Table) // приведение типа
+					migrationsList = append(migrationsList, GenerateCreateTableSQL(table))
+				} else {
+					table := f().(*alter.Table) // приведение типа
+					migrationsList = append(migrationsList, GenerateAlterTableSQL(table))
+				}
 			}
 		}
+
 	}
 
 	return migrationsList, nil
