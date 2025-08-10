@@ -36,23 +36,23 @@ func (c *Column) ToSQL() string {
 	sql := []string{}
 	AlterColumn := "ALTER COLUMN "
 	if c.TypeAlter != "" {
-		sql = append(sql, AlterColumn+c.TypeAlter)
+		sql = append(sql, c.TypeAlter)
 	}
 
 	if c.DefaultSet != "" {
-		sql = append(sql, AlterColumn+c.DefaultSet)
+		sql = append(sql, c.DefaultSet)
 	}
 
 	if c.DefaultDrop != "" {
-		sql = append(sql, AlterColumn+c.DefaultDrop)
+		sql = append(sql, c.DefaultDrop)
 	}
 
 	if c.NotNullSet != "" {
-		sql = append(sql, AlterColumn+c.NotNullSet)
+		sql = append(sql, c.NotNullSet)
 	}
 
 	if c.NotNullDrop != "" {
-		sql = append(sql, AlterColumn+c.NotNullDrop)
+		sql = append(sql, c.NotNullDrop)
 	}
 
 	if c.ColumnRename != "" {
@@ -60,7 +60,7 @@ func (c *Column) ToSQL() string {
 	}
 
 	if c.ColumnRenameUsing != "" {
-		sql = append(sql, AlterColumn+c.ColumnRenameUsing)
+		sql = append(sql, c.ColumnRenameUsing)
 	}
 
 	if c.ColumnAdd != "" {
@@ -71,6 +71,6 @@ func (c *Column) ToSQL() string {
 		sql = append(sql, c.ColumnDrop)
 	}
 
-	sqlStr := strings.Join(sql, "")
+	sqlStr := AlterColumn + strings.Join(sql, "")
 	return sqlStr
 }

@@ -1,8 +1,6 @@
 package main
 
-import (
-	"perturabo/migrations"
-)
+import "perturabo/migrate"
 
 func main() {
 	// id := create.NewId().ToSQL()
@@ -27,13 +25,15 @@ func main() {
 	// fmt.Println(ColRename)
 	// fmt.Println(ColRenameUsing)
 
-	table := migrations.CreateUserTable_0001()
-	mig := GenerateCreateTableSQL(table)
-	println(mig)
+	// table := migrations.CreateUserTable_0001()
+	// mig := GenerateCreateTableSQL(table)
+	// println(mig)
 
-	alterTable := migrations.AlterUserTable_0002()
-	mig = GenerateAlterTableSQL(alterTable)
-	println(mig)
+	// alterTable := migrations.AlterUserTable_0002()
+	// mig = GenerateAlterTableSQL(alterTable)
+	// println(mig)
 
-	println(DropTableIfExists("users"))
+	// println(DropTableIfExists("users"))
+
+	migrate.Run()
 }

@@ -1,0 +1,87 @@
+package migrate
+
+import (
+	"fmt"
+	"os"
+	"perturabo/alter"
+	"perturabo/create"
+	_ "perturabo/migrations"
+	"perturabo/registry"
+	"perturabo/utils"
+	"sort"
+	"strings"
+)
+
+func LoadMigrationFiles() ([]string, error) {
+	settings := utils.LoadSettings()
+	migrationArr, err := os.ReadDir(settings.Migrations)
+	if err != nil {
+		for _, readEntry := range migrationArr {
+			fmt.Println(readEntry.Name())
+		}
+		fmt.Println("Error during reading migrations folder. ", err.Error())
+		return []string{}, err
+	}
+
+	files := []string{}
+	for _, readEntry := range migrationArr {
+		filename := readEntry.Name()
+		norm, err := ValidateFileName(filename)
+		if err != nil {
+			fmt.Println("Not valid. Skip ", filename)
+			continue
+		}
+		files = append(files, norm)
+	}
+	sort.Strings(files)
+
+	return files, nil
+}
+
+func ValidateFileName(filename string) (string, error) {
+	split := strings.Split(filename, ".")
+	ext := split[len(split)-1]
+	if ext != "go" {
+		return "", os.ErrInvalid
+	}
+	splitName := strings.Split(split[0], "_")
+
+	isCreate := utils.Contains(splitName, func(s string) bool {
+		return s == "create"
+	}) >= 0
+
+	isAlter := utils.Contains(splitName, func(s string) bool {
+		return s == "alter"
+	}) >= 0
+
+	isAlterAndCreate := isCreate && isAlter
+
+	if (isCreate || isAlter) && !isAlterAndCreate {
+		return split[0], nil
+	}
+	return "", os.ErrInvalid
+}
+
+func GetExistingMigrations() ([]string, error) {
+	loadMigrationFormattedFiles, err := LoadMigrationFiles()
+	if err != nil {
+		fmt.Println("Error", err.Error())
+	}
+	migrationsList := []string{}
+	for _, readEntry := range loadMigrationFormattedFiles {
+
+		isCreate := strings.Split(readEntry, "_")[1] == "create"
+
+		if f, ok := registry.Funcs[readEntry]; ok {
+			if isCreate {
+				table := f().(*create.Table) // приведение типа
+				migrationsList = append(migrationsList, GenerateCreateTableSQL(table))
+			} else {
+				table := f().(*alter.Table) // приведение типа
+				migrationsList = append(migrationsList, GenerateAlterTableSQL(table))
+			}
+		}
+	}
+
+	return migrationsList, nil
+}
