@@ -1,5 +1,4 @@
 migrations: "./migrations"
-sysmigrations: "./sysmigrations"
 
 template-create: "./templates/create.tmpl"
 template-alter: "./templates/alter.tmpl"

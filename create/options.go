@@ -1,66 +1,66 @@
 package create
 
-func (column *Column) SetNullable() *Column {
-	column.Nullable = true
+func (column *Column) Nullable() *Column {
+	column.nullable = true
 	return column
 }
 
-func (column *Column) SetCascadeOnDelete() *Column {
-	column.CascadeOnDelete = true
+func (column *Column) CascadeOnDelete() *Column {
+	column.cascadeOnDelete = true
 	return column
 }
 
-func (column *Column) SetCascadeOnUpdate() *Column {
-	column.CascadeOnUpdate = true
+func (column *Column) CascadeOnUpdate() *Column {
+	column.cascadeOnUpdate = true
 	return column
 }
 
-func (column *Column) SetNullOnDelete() *Column {
-	column.NullOnDelete = true
+func (column *Column) NullOnDelete() *Column {
+	column.nullOnDelete = true
 	return column
 }
 
-func (column *Column) SetNullOnUpdate() *Column {
-	column.NullOnUpdate = true
+func (column *Column) NullOnUpdate() *Column {
+	column.nullOnUpdate = true
 	return column
 }
 
-func (column *Column) SetRestrictOnDelete() *Column {
-	column.RestrictOnDelete = true
+func (column *Column) RestrictOnDelete() *Column {
+	column.restrictOnDelete = true
 	return column
 }
 
-func (column *Column) SetRestrictOnUpdate() *Column {
-	column.RestrictOnUpdate = true
+func (column *Column) RestrictOnUpdate() *Column {
+	column.restrictOnUpdate = true
 	return column
 }
 
-func (column *Column) SetNoActionOnDelete() *Column {
-	column.NoActionOnDelete = true
+func (column *Column) NoActionOnDelete() *Column {
+	column.noActionOnDelete = true
 	return column
 }
 
-func (column *Column) SetNoActionOnUpdate() *Column {
-	column.NoActionOnUpdate = true
+func (column *Column) NoActionOnUpdate() *Column {
+	column.noActionOnUpdate = true
 	return column
 }
 
-func (column *Column) SetDefaultOnDelete() *Column {
-	column.DefaultOnDelete = true
+func (column *Column) DefaultOnDelete() *Column {
+	column.defaultOnDelete = true
 	return column
 }
 
-func (column *Column) SetDefaultOnUpdate() *Column {
-	column.DefaultOnUpdate = true
+func (column *Column) DefaultOnUpdate() *Column {
+	column.defaultOnUpdate = true
 	return column
 }
 
-func (column *Column) SetUnique() *Column {
-	column.Unique = true
+func (column *Column) Unique() *Column {
+	column.unique = true
 	return column
 }
 
-func (column *Column) SetDefault(value string) *Column {
-	column.Default = value
+func (column *Column) Default(value string) *Column {
+	column.dDefault = value
 	return column
 }

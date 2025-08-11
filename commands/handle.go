@@ -18,7 +18,7 @@ func Handle(args []string) {
 		CreateMigration(argsArr)
 	case "alter:migration":
 		AlterMigration(argsArr)
-	case "migrate":
+	case "migrate:run":
 		Migrate(argsArr)
 	case "migrate:rollback":
 		Rollback(argsArr)

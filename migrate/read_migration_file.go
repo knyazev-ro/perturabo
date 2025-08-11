@@ -7,7 +7,6 @@ import (
 	"perturabo/create"
 	_ "perturabo/migrations"
 	"perturabo/registry"
-	_ "perturabo/sysmigrations"
 	"perturabo/utils"
 	"sort"
 	"strings"
@@ -29,6 +28,11 @@ func LoadMigrationFiles() ([]string, error) {
 		filename := readEntry.Name()
 		norm, err := ValidateFileName(filename)
 		if err != nil {
+
+			if norm == "head" {
+				continue
+			}
+
 			fmt.Println("Not valid. Skip ", filename)
 			continue
 		}
@@ -60,7 +64,7 @@ func ValidateFileName(filename string) (string, error) {
 	if (isCreate || isAlter) && !isAlterAndCreate {
 		return split[0], nil
 	}
-	return "", os.ErrInvalid
+	return splitName[0], os.ErrInvalid
 }
 
 func Get(action string) ([]string, error) {
