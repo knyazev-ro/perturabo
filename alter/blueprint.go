@@ -5,21 +5,21 @@ import (
 )
 
 type Column struct {
-	Field     string
-	TypeAlter string
+	field     string
+	typeAlter string
 
-	DefaultSet  string
-	DefaultDrop string
+	defaultSet  string
+	defaultDrop string
 
-	NotNullSet  string
-	NotNullDrop string
+	notNullSet  string
+	notNullDrop string
 
-	ColumnRename      string
-	ColumnRenameUsing string
+	columnRename      string
+	columnRenameUsing string
 
-	ColumnAdd  string
-	ColumnDrop string
-	Statistics string
+	columnAdd  string
+	columnDrop string
+	statistics string
 }
 
 func Col(name any) *Column {
@@ -28,7 +28,7 @@ func Col(name any) *Column {
 		return &Column{}
 	}
 	return &Column{
-		Field: name.(string),
+		field: name.(string),
 	}
 }
 
@@ -36,44 +36,44 @@ func (c *Column) ToSQL() string {
 
 	sql := []string{}
 	AlterColumn := "ALTER COLUMN "
-	if c.TypeAlter != "" {
-		sql = append(sql, AlterColumn+c.TypeAlter)
+	if c.typeAlter != "" {
+		sql = append(sql, AlterColumn+c.typeAlter)
 	}
 
-	if c.DefaultSet != "" {
-		sql = append(sql, AlterColumn+c.DefaultSet)
+	if c.defaultSet != "" {
+		sql = append(sql, AlterColumn+c.defaultSet)
 	}
 
-	if c.DefaultDrop != "" {
-		sql = append(sql, AlterColumn+c.DefaultDrop)
+	if c.defaultDrop != "" {
+		sql = append(sql, AlterColumn+c.defaultDrop)
 	}
 
-	if c.NotNullSet != "" {
-		sql = append(sql, AlterColumn+c.NotNullSet)
+	if c.notNullSet != "" {
+		sql = append(sql, AlterColumn+c.notNullSet)
 	}
 
-	if c.NotNullDrop != "" {
-		sql = append(sql, AlterColumn+c.NotNullDrop)
+	if c.notNullDrop != "" {
+		sql = append(sql, AlterColumn+c.notNullDrop)
 	}
 
-	if c.ColumnRename != "" {
-		sql = append(sql, c.ColumnRename)
+	if c.columnRename != "" {
+		sql = append(sql, c.columnRename)
 	}
 
-	if c.ColumnRenameUsing != "" {
-		sql = append(sql, AlterColumn+c.ColumnRenameUsing)
+	if c.columnRenameUsing != "" {
+		sql = append(sql, AlterColumn+c.columnRenameUsing)
 	}
 
-	if c.ColumnAdd != "" {
-		sql = append(sql, c.ColumnAdd)
+	if c.columnAdd != "" {
+		sql = append(sql, c.columnAdd)
 	}
 
-	if c.ColumnDrop != "" {
-		sql = append(sql, c.ColumnDrop)
+	if c.columnDrop != "" {
+		sql = append(sql, c.columnDrop)
 	}
 
-	if c.Statistics != "" {
-		sql = append(sql, c.Statistics)
+	if c.statistics != "" {
+		sql = append(sql, c.statistics)
 	}
 
 	sqlStr := strings.Join(sql, "")

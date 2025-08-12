@@ -16,8 +16,8 @@ var Up{{.MigrationNameCamelCase}} = registry.Register(
 			Body: []*create.Column{
             	create.NewId(),
                 // Fields place here
-				create.NewTimestamp("updated_at").Default("now()"),
-				create.NewTimestamp("created_at").Default("now()"),
+				create.NewTimestamp("updated_at").Default(common.Now()),
+				create.NewTimestamp("created_at").Default(common.Now()),
 			},
 		}
 	},

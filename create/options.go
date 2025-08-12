@@ -1,5 +1,7 @@
 package create
 
+import "perturabo/common"
+
 func (column *Column) Nullable() *Column {
 	column.nullable = true
 	return column
@@ -60,7 +62,7 @@ func (column *Column) Unique() *Column {
 	return column
 }
 
-func (column *Column) Default(value string) *Column {
-	column.dDefault = value
+func (column *Column) Default(t *common.ConvertType) *Column {
+	column.dDefault = t.Field
 	return column
 }

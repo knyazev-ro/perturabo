@@ -1,6 +1,7 @@
 package migrations
 
 import (
+	"perturabo/common"
 	"perturabo/create"
 	"perturabo/registry"
 )
@@ -18,8 +19,8 @@ var UpCreateGerardMigrationsTable_0000 = registry.Register(
 				create.NewString("name", 255),
 				create.NewBigInteger("wave_id"),
 
-				create.NewTimestamp("updated_at").Default("now()"),
-				create.NewTimestamp("created_at").Default("now()"),
+				create.NewTimestamp("updated_at").Default(common.Now()),
+				create.NewTimestamp("created_at").Default(common.Now()),
 			},
 		}
 	},

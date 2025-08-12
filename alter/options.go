@@ -2,55 +2,57 @@ package alter
 
 import (
 	"fmt"
+	"perturabo/common"
+	"perturabo/create"
 	"strings"
 )
 
-func (c *Column) Type(value string) *Column {
-	c.TypeAlter = fmt.Sprintf("%s TYPE %s", c.Field, value)
+func (c *Column) Type(dbtype *common.DatabaseType) *Column {
+	c.typeAlter = fmt.Sprintf("%s TYPE %s", c.field, dbtype.Field)
 	return c
 }
 
-func (c *Column) SetDefault(value string) *Column {
-	c.DefaultSet = fmt.Sprintf("%s SET DEFAULT %s", c.Field, value)
+func (c *Column) Default(t *common.ConvertType) *Column {
+	c.defaultSet = fmt.Sprintf("%s SET DEFAULT %s", c.field, t.Field)
 	return c
 }
 
 func (c *Column) DropDefault() *Column {
-	c.DefaultDrop = fmt.Sprintf("%s DROP DEFAULT", c.Field)
+	c.defaultDrop = fmt.Sprintf("%s DROP DEFAULT", c.field)
 	return c
 }
 
-func (c *Column) SetNotNull() *Column {
-	c.NotNullSet = fmt.Sprintf("%s SET NOT NULL", c.Field)
+func (c *Column) NotNull() *Column {
+	c.notNullSet = fmt.Sprintf("%s SET NOT NULL", c.field)
 	return c
 }
 
 func (c *Column) DropNotNull() *Column {
-	c.NotNullDrop = fmt.Sprintf("%s DROP NOT NULL", c.Field)
+	c.notNullDrop = fmt.Sprintf("%s DROP NOT NULL", c.field)
 	return c
 }
 
 func (c *Column) Rename(newName string) *Column {
-	c.ColumnRename = fmt.Sprintf("RENAME COLUMN %s TO %s", c.Field, newName)
+	c.columnRename = fmt.Sprintf("RENAME COLUMN %s TO %s", c.field, newName)
 	return c
 }
 
-func (c *Column) RenameTypeUsing(newType string) *Column {
-	c.ColumnRenameUsing = fmt.Sprintf("%s TYPE %s USING %s::%s", c.Field, strings.ToUpper(newType), c.Field, newType)
+func (c *Column) RenameTypeUsing(dbtype *common.DatabaseType) *Column {
+	c.columnRenameUsing = fmt.Sprintf("%s TYPE %s USING %s::%s", c.field, strings.ToUpper(dbtype.Field), c.field, dbtype.Field)
 	return c
 }
 
-func (c *Column) Add(value string) *Column {
-	c.ColumnAdd = fmt.Sprintf("ADD COLUMN %s", value)
+func (c *Column) Add(newcol *create.Column) *Column {
+	c.columnAdd = fmt.Sprintf("ADD COLUMN %s", newcol.ToSQL())
 	return c
 }
 
 func (c *Column) Drop() *Column {
-	c.ColumnDrop = fmt.Sprintf("DROP COLUMN %s", c.Field)
+	c.columnDrop = fmt.Sprintf("DROP COLUMN %s", c.field)
 	return c
 }
 
-func (c *Column) SetStatistics(value int) *Column {
-	c.Statistics = fmt.Sprintf("%s SET STATISTICS %d", c.Field, value)
+func (c *Column) Statistics(value int) *Column {
+	c.statistics = fmt.Sprintf("%s SET STATISTICS %d", c.field, value)
 	return c
 }
