@@ -1,9 +1,9 @@
 package migrations
 
 import (
-	"perturabo/common"
 	"perturabo/create"
 	"perturabo/registry"
+	"perturabo/types"
 )
 
 var createGerardMigrationsTable_0000 = "0000_create_gerard_migrations_table" // Name of migration MUST be the same as the filename without .go extenstion
@@ -19,8 +19,8 @@ var UpCreateGerardMigrationsTable_0000 = registry.Register(
 				create.NewString("name", 255),
 				create.NewBigInteger("wave_id"),
 
-				create.NewTimestamp("updated_at").Default(common.Now()),
-				create.NewTimestamp("created_at").Default(common.Now()),
+				create.NewTimestamp("updated_at").Default(types.Now()),
+				create.NewTimestamp("created_at").Default(types.Now()),
 			},
 		}
 	},

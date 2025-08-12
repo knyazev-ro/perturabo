@@ -3,6 +3,7 @@ package migrations
 import (
 	"perturabo/create"
 	"perturabo/registry"
+	"perturabo/types"
 )
 
 var {{.MigrationNameVar}} = "{{.MigrationName}}" // Name of migration MUST be the same as the filename without .go extenstion
@@ -16,8 +17,8 @@ var Up{{.MigrationNameCamelCase}} = registry.Register(
 			Body: []*create.Column{
             	create.NewId(),
                 // Fields place here
-				create.NewTimestamp("updated_at").Default(common.Now()),
-				create.NewTimestamp("created_at").Default(common.Now()),
+				create.NewTimestamp("updated_at").Default(types.Now()),
+				create.NewTimestamp("created_at").Default(types.Now()),
 			},
 		}
 	},

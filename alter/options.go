@@ -2,17 +2,17 @@ package alter
 
 import (
 	"fmt"
-	"perturabo/common"
 	"perturabo/create"
+	"perturabo/types"
 	"strings"
 )
 
-func (c *Column) Type(dbtype *common.DatabaseType) *Column {
+func (c *Column) Type(dbtype *types.DatabaseType) *Column {
 	c.typeAlter = fmt.Sprintf("%s TYPE %s", c.field, dbtype.Field)
 	return c
 }
 
-func (c *Column) Default(t *common.ConvertType) *Column {
+func (c *Column) Default(t *types.ConvertType) *Column {
 	c.defaultSet = fmt.Sprintf("%s SET DEFAULT %s", c.field, t.Field)
 	return c
 }
@@ -37,7 +37,7 @@ func (c *Column) Rename(newName string) *Column {
 	return c
 }
 
-func (c *Column) RenameTypeUsing(dbtype *common.DatabaseType) *Column {
+func (c *Column) RenameTypeUsing(dbtype *types.DatabaseType) *Column {
 	c.columnRenameUsing = fmt.Sprintf("%s TYPE %s USING %s::%s", c.field, strings.ToUpper(dbtype.Field), c.field, dbtype.Field)
 	return c
 }
