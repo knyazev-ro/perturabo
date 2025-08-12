@@ -2,3 +2,4 @@ migrations: "./migrations"
 
 template-create: "./templates/create.tmpl"
 template-alter: "./templates/alter.tmpl"
+template-gerard-migrations: "./templates/gerard_migrations_table.tmpl"

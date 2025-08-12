@@ -10,16 +10,18 @@ import (
 type Settings struct {
 	Migrations string `yaml:"migrations"`
 
-	TemplateCreate string `yaml:"template-create"`
-	TemplateAlter  string `yaml:"template-alter"`
+	TemplateCreate                string `yaml:"template-create"`
+	TemplateAlter                 string `yaml:"template-alter"`
+	TemplateGerardMigrationsTable string `yaml:"template-gerard-migrations"`
 }
 
 func DefaultSettings() *Settings {
 	return &Settings{
 		Migrations: "./migrations",
 
-		TemplateCreate: "./templates/create.tmpl",
-		TemplateAlter:  "./templates/alter.tmpl",
+		TemplateCreate:                "./templates/create.tmpl",
+		TemplateAlter:                 "./templates/alter.tmpl",
+		TemplateGerardMigrationsTable: "./templates/gerard_migrations_table.tmpl",
 	}
 }
 

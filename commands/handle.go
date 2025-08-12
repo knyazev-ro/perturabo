@@ -3,6 +3,9 @@ package commands
 import "flag"
 
 func Handle(args []string) {
+
+	Init()
+
 	command := args[1]
 	if command == "help" {
 		// GetHelp()
