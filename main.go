@@ -2,9 +2,9 @@ package main
 
 import (
 	"os"
-	"perturabo/commands"
+	"perturabo/cmd"
 )
 
 func main() {
-	commands.Handle(os.Args)
+	cmd.Handle(os.Args)
 }
